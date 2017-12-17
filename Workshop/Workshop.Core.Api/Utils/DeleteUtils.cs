@@ -1,53 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
 using Workshop.Domain.DataBase;
+using Workshop.Domain.Models;
 
 namespace Workshop.Core.Api.Utils
 {
-    public class DeleteUtils
+    public static class DeleteUtils
     {
-        public async Task DeleteTask(int id, WorkshopContext context)
+        public static async Task DeleteTask(WorkshopTask task, WorkshopContext context)
         {
-            var workshopTask = await context.Tasks.SingleOrDefaultAsync(m => m.Id == id);
-            if (workshopTask != null)
-            {
-                context.Tasks.Remove(workshopTask);
-                await context.SaveChangesAsync();
-            }  
+            context.Tasks.Remove(task);
+            await context.SaveChangesAsync();
         }
 
-        public async Task DeleteProblem(int id, WorkshopContext context)
+        public static async Task DeleteProblem(WorkshopProblem problem, WorkshopContext context)
         {
-            var problem = await context.Problems.SingleOrDefaultAsync(m => m.Id == id);
-            if (problem != null)
-            {
-                context.Problems.Remove(problem);
-                await context.SaveChangesAsync();
-            }
+            context.Problems.Remove(problem);
+            await context.SaveChangesAsync();
         }
 
-        public async Task DeleteObject(int id, WorkshopContext context)
+        public static async Task DeleteObject(WorkshopObject obj, WorkshopContext context)
         {
-            var obj = await context.Objects.SingleOrDefaultAsync(m => m.Id == id);
-            if (obj != null)
-            {
-                context.Objects.Remove(obj);
-                await context.SaveChangesAsync();
-            }
+            context.Objects.Remove(obj);
+            await context.SaveChangesAsync();
         }
 
-        public async Task DeleteClient(int id, WorkshopContext context)
+        public static async Task DeleteClient(Client client, WorkshopContext context)
         {
-            var client = await context.Clients.SingleOrDefaultAsync(m => m.Id == id);
-            if (client != null)
-            {
-                context.Clients.Remove(client);
-                await context.SaveChangesAsync();
-            }
+            context.Clients.Remove(client);
+            await context.SaveChangesAsync();
         }
     }
 }

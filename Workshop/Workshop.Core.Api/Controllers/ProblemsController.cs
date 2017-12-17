@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Workshop.Core.Api.Utils;
 using Workshop.Domain.DataBase;
 using Workshop.Domain.Models;
 
@@ -112,6 +111,8 @@ namespace Workshop.Core.Api.Controllers
                 return NotFound();
             }
 
+            await DeleteRestOfEntities(workshopProblem);
+
             _context.Problems.Remove(workshopProblem);
             await _context.SaveChangesAsync();
 
@@ -121,6 +122,18 @@ namespace Workshop.Core.Api.Controllers
         private bool WorkshopProblemExists(int id)
         {
             return _context.Problems.Any(e => e.Id == id);
+        }
+
+        private async Task DeleteRestOfEntities(WorkshopProblem problem)
+        {
+            var tasks = _context.Tasks.Where(t => t.ProblemId == problem.Id);
+            if (tasks.Any())
+            {
+                foreach (var t in tasks)
+                {
+                    await DeleteUtils.DeleteTask(t, _context);
+                }
+            }
         }
     }
 }
