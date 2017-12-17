@@ -12,6 +12,7 @@ namespace Workshop.Core.Api.Controllers
     public class ValuesController : Controller
     {
         private readonly WorkshopContext _db;
+
         public ValuesController()
         {
             _db = new WorkshopContext(new DbContextOptions<WorkshopContext>()); 
