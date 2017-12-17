@@ -22,21 +22,6 @@ namespace Workshop.Core.Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            //_db.Employees.Add(new Employee
-            //{
-            //    Usersame = "Admin",
-            //    PhoneNumber = "123456789",
-            //    Role = "A"
-
-            //});
-            //_db.SaveChanges();
-            //var user = _db.Employees.ToArray().Single(u => u.Usersame == "Admin");
-            //_db.UsersAccounts.Add(new UserAccount
-            //{
-            //    Password = "Admin".GetHashCode().ToString(),
-            //    EmployeeId = user.Id
-            //});
-            //_db.SaveChanges();
             return new string[] { "value1", "value2" };
         }
 
