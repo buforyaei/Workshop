@@ -14,8 +14,9 @@ namespace Workshop.Core.Api
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json");
-
+            
             Configuration = builder.Build();
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +27,9 @@ namespace Workshop.Core.Api
             services.AddDbContext<WorkshopContext>(options =>
             options.UseSqlServer(constring));
             services.AddMvc();
+            /////
+            services.AddCors();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -34,7 +38,12 @@ namespace Workshop.Core.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            ////
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
             app.UseMvc();
         }
     }
